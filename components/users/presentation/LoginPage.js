@@ -5,19 +5,19 @@ import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import { loginSubmit } from '../../../actions/userActions';
 
-const submit = (values, dispatch) => 
+const submit = (values, dispatch) =>
   new Promise((resolve, reject) => {
     dispatch(loginSubmit({ values, resolve, reject }));
   });
 
 class LoginPage extends React.Component {
   render() {
-    const { 
-      fields: { 
-        username, 
-        password, 
-        rememberMe, 
-      }, 
+    const {
+      fields: {
+        username,
+        password,
+        rememberMe,
+      },
       submitting,
       resetForm,
       handleSubmit,
@@ -27,9 +27,9 @@ class LoginPage extends React.Component {
       <form onSubmit={handleSubmit(submit.bind(this))}>
         <div>
           <TextField
-            id="username" 
+            id="username"
             hintText="Username"
-            errorText={username.touched && username.error} 
+            errorText={username.touched && username.error}
             {...username} />
         </div>
         <div>
@@ -37,11 +37,11 @@ class LoginPage extends React.Component {
             id="password"
             type="password"
             hintText="Password"
-            errorText={password.touched && password.error} 
+            errorText={password.touched && password.error}
             {...password} />
         </div>
         <div>
-          <Checkbox 
+          <Checkbox
             id="remember-me"
             label="Remember me?"
             {...rememberMe} />
@@ -56,11 +56,13 @@ class LoginPage extends React.Component {
         </div>
         <br />
         <div>
-          {this.props.submitting ? <CircularProgress size={0.5} /> : 
-            <FlatButton  
-              primary 
-              label="Login"
-              type="submit" />}
+          {
+            this.props.submitting ? <CircularProgress size={0.5} /> :
+              <FlatButton
+                primary
+                label="Login"
+                type="submit" />
+          }
         </div>
       </form>
     );

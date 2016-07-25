@@ -1,6 +1,6 @@
 import _helps from './helps';
 
-const TIMEOUT = 100;
+const TIMEOUT = 1000;
 
 export const api = {
   getHelps() {
@@ -9,3 +9,5 @@ export const api = {
     });
   },
 };
+
+// TODO: Write for post once we have the backend

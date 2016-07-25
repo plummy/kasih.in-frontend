@@ -3,7 +3,7 @@ import rootReducer from '../reducers';
 import createSagaMiddleware, { END } from 'redux-saga';
 import sagas from '../sagas';
 
-export default function configureStore(initialState) {
+function configureStore(initialState) {
   const rootSagas = [
     sagas,
   ];
@@ -21,3 +21,5 @@ export default function configureStore(initialState) {
   store.close = () => store.dispatch(END);
   return store;
 }
+
+export default configureStore;

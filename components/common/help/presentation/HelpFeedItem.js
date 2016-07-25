@@ -1,12 +1,16 @@
 import React, { PropTypes } from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import { 
-  Card, 
-  CardActions, 
-  CardHeader, 
-  CardMedia, 
-  CardTitle, 
+import {
+  Card,
+  CardActions,
+  CardHeader,
+  CardMedia,
+  CardTitle,
   CardText } from 'material-ui/Card';
+import isEmpty from 'lodash/isEmpty';
+import TextField from 'material-ui/TextField';
+import HelpMap from './HelpMap';
+
 
 // TODO: Optimize the usage of cards
 // CardMedia: Add card media / maps?
@@ -15,20 +19,46 @@ import {
 // CardActions: What actions can a user do?
 // Source: http://www.material-ui.com/ => Components => Cards
 
-const HelpFeedItem = (props) => 
+const HelpFeedItem = (props) =>
   <Card>
     <CardHeader
       title={props.item.name}
-      subtitle=""
+      subtitle={props.item.message}
+      actAsExpander={
+        !isEmpty(props.item.description) ||
+        ((props.item.hasOwnProperty('latitude') && props.item.hasOwnProperty('longitude')) &&
+        (props.item.latitude !== undefined && props.item.longitude !== undefined))
+      }
+      showExpandableButton={
+        !isEmpty(props.item.description) ||
+        ((props.item.hasOwnProperty('latitude') && props.item.hasOwnProperty('longitude')) &&
+        (props.item.latitude !== undefined && props.item.longitude !== undefined))
+      }
       avatar="images/yuna.jpg" />
-    <CardTitle 
-      title={props.item.message} 
-      subtitle="" />
-    <CardText>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed.
-      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+    <CardText expandable>
+      <div style={{ padding: '5px' }}>
+        {props.item.description}
+      </div>
+      <div>
+        {
+          (props.item.hasOwnProperty('latitude') && props.item.hasOwnProperty('longitude')) &&
+          (props.item.latitude !== undefined && props.item.longitude !== undefined) ?
+            <HelpMap
+              style={{
+                width: '100%',
+                height: '200px',
+                padding: '5px',
+              }}
+              center={{
+                lat: props.item.latitude,
+                lng: props.item.longitude,
+              }}
+              marker={{
+                lat: props.item.latitude,
+                lng: props.item.longitude,
+              }} /> : ''
+        }
+      </div>
     </CardText>
     <CardActions>
       <FlatButton label="Action1" />

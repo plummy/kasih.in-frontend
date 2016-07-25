@@ -1,10 +1,8 @@
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
-import { Router, browserHistory } from 'react-router';
-import routes from './routes';
+import Routes from './Routes';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { black, darkWhite } from 'material-ui/styles/colors';
@@ -27,9 +25,7 @@ const muiTheme = getMuiTheme({
 
 render(
   <MuiThemeProvider muiTheme={muiTheme}>
-    <Provider store={store}>
-      <Router history={browserHistory} routes={routes} />
-    </Provider>
+    <Routes store={store} />
   </MuiThemeProvider>,
   document.getElementById('app')
 );
