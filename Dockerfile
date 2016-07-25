@@ -1,10 +1,13 @@
-FROM node:latest
+FROM alpine:3.4
 
 MAINTAINER spondbob spondbob@eamca.com
 
+# Install Nodejs
+RUN apk add --update nodejs
+
 # Install & cache modules
 ADD package.json /tmp/package.json
-RUN cd /tmp && npm i webpack webpack-dev-server -g && npm install && npm install --only=dev
+RUN cd /tmp && npm i webpack webpack-dev-server -g && npm install
 
 # Add base code & node modules to app
 ENV app /var/app
