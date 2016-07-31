@@ -2,19 +2,20 @@ version: '2'
 
 services:
   web:
-    image: httpd:2.4
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.nginx
     volumes:
-      - .:/usr/local/apache2/htdocs/
+      - .:/usr/share/nginx/html/
     ports:
       - 80:80
   webpack:
-    build: .
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.node
     command: webpack-dev-server --config webpack.hot.config.js --hot --progress --inline --host=0.0.0.0
     volumes:
       - .:/var/app
-      - node_modules:/var/app/node_modules
+      - /var/app/node_modules
     ports:
       - 8080:8080
-volumes:
-  node_modules:
-    driver: local
